@@ -27,3 +27,18 @@
     <%= button_to "Destroy", @post, method: :delete, class: "border border-red-500 text-red-500 bg-white py-1 px-2 cursor-pointer hover:bg-red-500 hover:text-white focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
   </div>
 <% end %>
+
+<br>
+<hr class="border-black border">
+<br>
+
+<% if Current.user.present? %>
+  <%= render "comments/form", comment: @comment || @post.comments.new %>
+<% end %>
+
+<% if @post.comments.exists? %>
+  <br />
+  <div id="comments" class="space-y-4">
+    <%= render @post.comments.order(created_at: :desc) %>
+  </div>
+<% end %>

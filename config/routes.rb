@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :comments
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users, only: %i[ show new create ]
   resources :sessions, only: %i[ new create ]
@@ -7,7 +6,9 @@ Rails.application.routes.draw do
   constraints(AuthenticatedConstraint.new) do
     resources :users, only: %i[ edit update destroy ]
     resources :sessions, only: %i[ destroy ]
-    resources :posts, only: %i[ new create edit update destroy ]
+    resources :posts, only: %i[ new create edit update destroy ] do
+      resources :comments, only: %i[ create edit update destroy ], shallow: true
+    end
   end
 
   resources :posts, only: %i[ index show ]

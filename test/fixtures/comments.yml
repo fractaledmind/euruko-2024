@@ -3,9 +3,9 @@
 one:
   post: one
   user: one
-  body: MyText
+  body: comment one
 
 two:
   post: two
   user: two
-  body: MyText
+  body: comment two

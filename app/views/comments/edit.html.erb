@@ -1,8 +1,17 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing comment</h1>
+<h1 class="absolute -top-4 py-px px-2 -mx-2 uppercase font-bold text-lg">
+  Editing comment
+</h1>
+<%= link_to "&larr; Back to post".html_safe, @comment.post, class: "absolute -top-4 right-4 py-px px-2 -mx-2 border-2 border-transparent hover:border-black focus:outline-none focus:ring focus:ring-offset-0 focus:ring-blue-500" %>
 
-  <%= render "form", comment: @comment %>
+<span class="text-sm">
+  <span>on <%= link_to @comment.post.title, @comment.post, class: "hover:underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %></span>
+  <span>&middot;</span>
+  <abbr title="<%= @comment.created_at.to_formatted_s(:long) %>" class="cursor-help">
+    <%= time_tag @comment.created_at, time_ago_in_words(@comment.created_at) %> ago
+  </abbr>
+</span>
 
-  <%= link_to "Show this comment", @comment, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to comments", comments_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+<br>
+<br>
+
+<%= render "form", comment: @comment %>
