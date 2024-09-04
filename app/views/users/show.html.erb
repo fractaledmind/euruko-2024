@@ -16,3 +16,54 @@
     <%= simple_format @user.about %>
   </dd>
 </dl>
+
+<br>
+
+<div class="space-y-1.5">
+  <details open>
+    <summary class="cursor-pointer focus:outline-none focus-visible:ring ring-offset-2 ring-blue-500">
+      <strong>Posts:</strong>
+      <%= @user.posts.size %>
+    </summary>
+    <ul class="list-none space-y-4">
+      <% @user.posts.order(created_at: :desc).each do |post| %>
+        <li class="inline-flex w-[calc(100%_-_1.676em)] items-baseline justify-between">
+          <div class="flex flex-col">
+            <%= render post %>
+          </div>
+
+          <% if post.user == Current.user %>
+            <div class="flex justify-end gap-2">
+              <%= link_to "Edit", edit_post_path(post), class: "border border-black text-black bg-white py-1 px-2 cursor-pointer hover:bg-black hover:text-white focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+              <%= button_to "Destroy", post, method: :delete, class: "border border-red-500 text-red-500 bg-white py-1 px-2 cursor-pointer hover:bg-red-500 hover:text-white focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </details>
+
+  <details>
+    <summary class="cursor-pointer focus:outline-none focus-visible:ring ring-offset-2 ring-blue-500">
+      <strong>Comments:</strong>
+      <%= @user.comments.size %>
+    </summary>
+    <ul class="list-none space-y-4">
+      <% @user.comments.order(created_at: :desc).each do |comment| %>
+        <li><%= render comment %></li>
+      <% end %>
+    </ul>
+  </details>
+
+  <% if @user == Current.user %>
+    <details>
+      <summary class="cursor-pointer focus:outline-none focus-visible:ring ring-offset-2 ring-blue-500">
+        <strong>Sessions:</strong>
+        <%= @user.sessions.size %>
+      </summary>
+      <ul class="list-[square] list-inside space-y-4 pl-6">
+        <%= render @user.sessions.order(created_at: :desc) %>
+      </ul>
+    </details>
+  <% end %>
+</div>

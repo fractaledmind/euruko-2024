@@ -5,9 +5,11 @@ one:
   password_digest: <%= BCrypt::Password.create("secret") %>
   about: I'm user one
   last_seen_at: 2024-09-04 19:14:18
+  posts_count: 1
 
 two:
   screen_name: two
   password_digest: <%= BCrypt::Password.create("secret") %>
   about: I'm user two
   last_seen_at: 2024-09-04 19:14:18
+  posts_count: 1

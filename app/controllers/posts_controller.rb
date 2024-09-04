@@ -17,7 +17,15 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Current.user.posts.new
+    post_attributes = if params[:lorem]
+      {
+        title: Faker::Lorem.words(number: rand(2..5)).join(" "),
+        content: rand(5..10).times.collect { rand(5..10).times.collect { Faker::Lorem.sentence(word_count: rand(5..10)) }.join(" ") }.join("\n\n")
+      }
+    else
+      {}
+    end
+    @post = Current.user.posts.new(post_attributes)
   end
 
   # GET /posts/1/edit

@@ -24,5 +24,6 @@
 
   <div class="inline-block">
     <%= form.submit class: "border border-black text-black bg-white py-1 px-2 cursor-pointer hover:bg-black hover:text-white focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+    <%= form.submit "Generate Lorem", class: "inline-block border border-transparent text-black bg-white py-1 px-2 cursor-pointer hover:border-black focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500", formaction: new_post_path, formmethod: :get, name: :lorem %>
   </div>
 <% end %>
