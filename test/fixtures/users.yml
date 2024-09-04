@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  screen_name: MyString
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  about: MyText
+  last_seen_at: 2024-09-04 19:14:18
+
+two:
+  screen_name: MyString
+  password_digest: <%= BCrypt::Password.create("secret") %>
+  about: MyText
+  last_seen_at: 2024-09-04 19:14:18
