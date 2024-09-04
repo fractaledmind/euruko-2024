@@ -1,49 +1,100 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @session = sessions(:one)
-  end
-
-  test "should not find index" do
-    get sessions_url
-    assert_response :not_found
-  end
-
-  test "should get new" do
-    get new_session_url
-    assert_response :success
-  end
-
-  test "should create session" do
-    assert_difference("Session.count") do
-      post sessions_url, params: { session: { user: { screen_name: @session.user.screen_name, password: "secret" } } }
+  class UnauthenticatedTest < SessionsControllerTest
+    setup do
+      @session = sessions(:one)
     end
 
-    assert_redirected_to user_url(Session.last.user)
-  end
+    test "shouldn't define index" do
+      get sessions_url
+      assert_response :not_found
+    end
 
-  test "should not define show" do
-    assert_raises NoMethodError do
+    test "should get new" do
+      get new_session_url
+      assert_response :success
+    end
+
+    test "should create session" do
+      assert_difference("Session.count") do
+        post sessions_url, params: { session: { user: { screen_name: @session.user.screen_name, password: "secret" } } }
+      end
+
+      assert_redirected_to user_url(Session.last.user)
+    end
+
+    test "shouldn't define show" do
       get session_url(@session)
+      assert_response :not_found
+    end
+
+    test "shouldn't define edit" do
+      assert_raises NoMethodError do
+        get edit_session_url(@session)
+      end
+    end
+
+    test "shouldn't define update" do
+      patch session_url(@session), params: { session: { user_id: @session.user_id } }
+      assert_response :not_found
+    end
+
+    test "shouldn't define destroy" do
+      assert_difference("Session.count", 0) do
+        delete session_url(@session)
+      end
+
+      assert_response :not_found
     end
   end
 
-  test "should not define edit" do
-    assert_raises NoMethodError do
-      get edit_session_url(@session)
+  class AuthenticatedTest < SessionsControllerTest
+    setup do
+      @session = sessions(:one)
+      authenticate(user: @session.user)
     end
-  end
 
-  test "should not define update" do
-    assert_raises NoMethodError do
-      patch session_url(@session), params: { session: { ip_address: "NEW IP", user_agent: "NEW USER AGENT" } }
+    test "shouldn't define index" do
+      get sessions_url
+      assert_response :not_found
     end
-  end
 
-  test "should not define destroy" do
-    assert_raises NoMethodError do
-      delete session_url(@session)
+    test "should get new" do
+      get new_session_url
+      assert_response :success
+    end
+
+    test "should create session" do
+      assert_difference("Session.count") do
+        post sessions_url, params: { session: { user: { screen_name: @session.user.screen_name, password: "secret" } } }
+      end
+
+      assert_redirected_to user_url(Session.last.user)
+    end
+
+    test "shouldn't define show" do
+      get session_url(@session)
+      assert_response :not_found
+    end
+
+    test "shouldn't define edit" do
+      assert_raises NoMethodError do
+        get edit_session_url(@session)
+      end
+    end
+
+    test "shouldn't define update" do
+      patch session_url(@session), params: { session: { user_id: @session.user_id } }
+      assert_response :not_found
+    end
+
+    test "should destroy session" do
+      assert_difference("Session.count", -1) do
+        delete session_url(@session)
+      end
+
+      assert_redirected_to user_url(@session.user)
     end
   end
 end

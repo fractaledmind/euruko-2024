@@ -26,6 +26,18 @@
         </a>
       </h2>
       <div class="inline-flex items-center gap-2">
+        <% if Current.user %>
+          <span class="inline-flex items-center">
+            <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-500" fill="currentColor" height="8" width="8" viewBox="0 0 4 4">
+              <rect width="4" height="4" />
+            </svg>
+            <span><%= link_to Current.user.screen_name_in_database, Current.user, class: "hover:underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %></span>
+          </span> |
+          <%= button_to "Sign out", Current.session, method: :delete, class: "hover:underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+        <% else %>
+          <%= link_to "Sign in", new_session_path, class: "hover:underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %> |
+          <%= link_to "Sign up", new_user_path, class: "hover:underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+        <% end %>
       </div>
     </header>
 
