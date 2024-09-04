@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+export PORT="${PORT:-3000}"
+export RAILS_ENV="production"
+export RELAX_SSL="true"
+export RAILS_LOG_LEVEL="warn"
+export WEB_CONCURRENCY="${WEB_CONCURRENCY:-10}"
+export RAILS_MAX_THREADS="${RAILS_MAX_THREADS:-5}"
+
+./bin/rails server
