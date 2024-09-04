@@ -1,7 +1,34 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New session</h1>
+<h1 class="absolute -top-4 py-px px-2 -mx-2 uppercase font-bold text-lg">
+  Sign in
+</h1>
 
-  <%= render "form", session: @session %>
+<%= form_with(model: @session, class: "contents") do |form| %>
+  <% if @session.errors.any? %>
+    <div class="text-red-500 font-medium mb-8" role="alert">
+      <h2 class="font-black text-sm uppercase tracking flex items-center">
+        <%= I18n.t("errors.messages.not_saved", count: @session.errors.count, resource: @session.class.model_name.human.downcase) %>
+      </h2>
+      <ul class="list-[square] list-inside pl-4 mt-2">
+        <% @session.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <%= link_to "Back to sessions", sessions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+  <%= form.fields_for :user do |fields| %>
+    <div class="flex flex-col gap-2 w-1/2 mb-8">
+      <%= fields.label :screen_name %>
+      <%= fields.text_field :screen_name, value: params[:screen_name_hint], required: true %>
+    </div>
+
+    <div class="flex flex-col gap-2 w-1/2 mb-8">
+      <%= fields.label :password %>
+      <%= fields.password_field :password, required: true, autocomplete: "current-password" %>
+    </div>
+  <% end %>
+
+  <div class="inline-block">
+    <%= form.submit class: "border border-black text-black bg-white py-1 px-2 cursor-pointer hover:bg-black hover:text-white focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500" %>
+  </div>
+<% end %>

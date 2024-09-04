@@ -82,6 +82,7 @@ GEM
       msgpack (~> 1.2)
     brakeman (6.2.1)
       racc
+    browser (5.3.1)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -323,6 +324,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   brakeman
+  browser (~> 5.3)
   capybara
   debug
   importmap-rails
