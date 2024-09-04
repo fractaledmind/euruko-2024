@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Euruko 2024" %></title>
+  <html class="h-full">
+    <title><%= content_for(:title) || "EuRuKo 2024" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -18,9 +18,39 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="h-full flex flex-col max-w-4xl mx-auto p-8 pb-0 font-mono">
+    <header class="flex items-center justify-between text-lg mb-16">
+      <h2>
+        <a href="/" class="bg-black text-white font-bold normal-case px-2 py-1 relative before:absolute before:inset-0 before:-z-10 before:transform before:bg-[radial-gradient(circle_at_center,#000_.05rem,transparent_0),radial-gradient(circle_at_center,#000_.05rem,transparent_0)] before:[background-size:.2rem_.2rem] before:[background-position:0_0,.1rem_.1rem] before:[background-color:initial] before:transition-transform before:ease-in before:duration-100 hover:before:translate-x-1 hover:before:translate-y-1 focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500">
+          Lorem News
+        </a>
+      </h2>
+      <div class="inline-flex items-center gap-2">
+      </div>
+    </header>
+
+    <main class="border-2 border-black bg-white px-4 py-8 relative mb-4 before:absolute before:inset-0 before:-z-10 before:transform before:translate-x-2 before:translate-y-2 before:bg-[radial-gradient(circle_at_center,#000_.05rem,transparent_0),radial-gradient(circle_at_center,#000_.05rem,transparent_0)] before:[background-size:.2rem_.2rem] before:[background-position:0_0,.1rem_.1rem] before:[background-color:initial]">
       <%= yield %>
     </main>
+
+    <footer class="mt-auto text-sm text-center">
+      <p class="py-4">
+        Made with &heartsuit; by <a href="https://twitter.com/fractaledmind" class="underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500">@fractaledmind</a> for <a href="https://2024.euruko.org" class="underline focus:outline-none focus:ring focus:ring-offset-2 focus:ring-blue-500">EuRuKo 2024</a>
+      </p>
+    </footer>
+
+    <div class="absolute top-[4.5rem] left-0 right-0 text-center">
+      <% if notice.present? %>
+        <p role="alert" class="py-1 px-2 bg-white border border-green-500 text-green-500 font-medium inline-block">
+          <%= notice.html_safe %>
+        </p>
+      <% end %>
+
+      <% if alert.present? %>
+        <p role="alert" class="py-1 px-2 bg-white border border-red-500 text-red-500 font-medium inline-block">
+          <%= alert.html_safe %>
+        </p>
+      <% end %>
+    </div>
   </body>
 </html>
