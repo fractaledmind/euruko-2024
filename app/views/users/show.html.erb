@@ -1,15 +1,18 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<h1 class="absolute -top-4 py-px px-2 -mx-2 uppercase font-bold text-lg">
+  <%= @user.screen_name %>
+</h1>
 
-    <%= render @user %>
-
-    <%= link_to "Edit this user", edit_user_path(@user), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to users", users_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this user", @user, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
-  </div>
-</div>
+<dl class="grid grid-cols-[fit-content(100%)_1fr] gap-x-2">
+  <dt><span class="italic">user</span>:</dt>
+  <dd>
+    <%= @user.screen_name %>
+  </dd>
+  <dt><span class="italic">created</span>:</dt>
+  <dd>
+    <%= time_ago_in_words(@user.created_at) %> ago
+  </dd>
+  <dt><span class="italic">about</span>:</dt>
+  <dd class="prose text-black">
+    <%= simple_format @user.about %>
+  </dd>
+</dl>

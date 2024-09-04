@@ -1,17 +1,24 @@
 <div id="<%= dom_id user %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Screen name:</strong>
+  <p>
+    <strong>Screen name:</strong>
     <%= user.screen_name %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">About:</strong>
+  <p>
+    <strong>About:</strong>
     <%= user.about %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Last seen at:</strong>
-    <%= user.last_seen_at %>
+  <p>
+    <strong>Last seen:</strong>
+    <abbr title="<%= user.last_seen_at.to_formatted_s(:long) %>" class="cursor-help">
+      <%= time_tag user.last_seen_at, time_ago_in_words(user.last_seen_at) %> ago
+    </abbr>
+  </p>
+
+  <p>
+    <strong>Posts count:</strong>
+    <%= user.posts_count %>
   </p>
 
 </div>
