@@ -73,10 +73,10 @@ end
 The gem suggests using [Rails' credentials](https://edgeguides.rubyonrails.org/security.html#custom-credentials) to store our bucket details. So, let's do that. We can edit the Rails credentials with:
 
 ```sh
-EDITOR=vim bin/rails credentials:edit --environment production
+EDITOR='code --wait' bin/rails credentials:edit --environment production
 ```
 
-In that `vim` window, we can add the bucket details (use `i` to enter `INSERT` mode, then paste the following at the top of the file):
+In your editor, we can add the bucket details:
 
 ```yaml
 litestream:
@@ -85,7 +85,7 @@ litestream:
   replica_access_key: minioadmin
 ```
 
-Save and close the file/that Vim session with `:wq` (use `Escape` first to exit `INSERT` mode). Now, if we run the `litestream:env` Rake task, we should see the environment variables set:
+Save and close the file to ensure secrets are saved. Now, if we run the `litestream:env` Rake task, we should see the environment variables set:
 
 ```sh
 RAILS_ENV=production bin/rails litestream:env
