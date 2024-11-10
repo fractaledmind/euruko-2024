@@ -39,3 +39,4 @@
 
 # Don't ignore the production database file
 !/storage/production.sqlite3
+.DS_Store
